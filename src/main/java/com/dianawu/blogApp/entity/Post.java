@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter@Setter
 @Builder //The builder pattern is a design pattern that allows for the creation of complex objects step by step. It separates the construction of an object from its representation.
@@ -33,5 +35,12 @@ public class Post {
 
     @UpdateTimestamp
     private LocalDateTime updatedOn;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by", nullable = false)
+    private User createdBy;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE) //The mappedBy attribute is used to define the mapping of a bidirectional relationship. If post is removed, all comments associated with it will be removed as well.
+    private Set<Comment> comments = new HashSet<>();
 
 }

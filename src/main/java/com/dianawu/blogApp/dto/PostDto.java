@@ -1,5 +1,6 @@
 package com.dianawu.blogApp.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +14,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PostDto {
     private Long id;
+    @NotEmpty (message = "Title is required")
     private String title;
     private String url;
+    @NotEmpty (message = "Content is required")
     private String content;
+    @NotEmpty (message = "Description is required")
     private String shortDescription;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
