@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -35,6 +37,21 @@ public class PostController {
         PostDto postDto = new PostDto();
         model.addAttribute("post", postDto);
         return "/admin/create_post";
+    }
+
+    @PostMapping("/admin/posts")
+    public String createPost(@ModelAttribute PostDto postDto) { //binds the form data to the postDto object when a POST request is made to /admin/posts.
+        postDto.setUrl(getUrl(postDto.getTitle()));
+        postService.createPost(postDto);
+        return "redirect:/admin/posts";
+    }
+
+    // other methods
+    private static String getUrl(String postTitle){
+        String title = postTitle.trim().toLowerCase();
+        String url = title.replaceAll("\\s+", "-"); //Regular expression matches one or more whitespace characters
+        url = url.replaceAll("[^a-zA-Z0-9-]", ""); //Regular expression matches any character that is not a letter or a digit
+        return url;
     }
 
 }

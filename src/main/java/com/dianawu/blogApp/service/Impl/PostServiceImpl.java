@@ -27,4 +27,12 @@ public class PostServiceImpl implements PostService {
                 .map(PostMapper::mapToDto) //.map((post) -> PostMapper.mapToDto(post)) -- lambda expression
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void createPost(PostDto postDto) {
+        Post post = PostMapper.mapToEntity(postDto);
+        postRepository.save(post);
+    }
+
+
 }
