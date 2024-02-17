@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
+
+<div th:replace="admin/header :: header"> </div>
+
+<body>
+
+<div th:replace="admin/header :: navbar"></div>
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <h1>List Blogs Posts</h1>
+        </div>
+        <table class="table table-striped table-hover table-bordered ">
+            <thead class="table-dark">
+                <th style="width: 10%">#</th>
+                <th style="width: 20%">Title</th>
+                <th style="width: 30%">Short Description</th>
+                <th style="width: 20%">Created On</th>
+                <th style="width: 20%">Actions</th>
+            </thead>
+
+            <tbody>
+                <tr th:each="post, postStat : ${posts}">
+                    <td th:text="${postStat.count}">1</td>
+                    <td th:text="${post.title}">title</td>
+                    <td th:text="${post.shortDescription}">shortDescription</td>
+                    <td th:text="${post.createdOn}">create on</td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</body>
+
+<div th:replace="admin/header :: footer"></div>
+
+</html>
