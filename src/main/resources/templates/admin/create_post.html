@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:replace="admin/header::header"></div>
+<br>
+
+<body>
+    <div th:replace="admin/header::navbar"></div>
+
+    <div class="container">
+        <div class="row col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Create Post</h2>
+                </div>
+                <div class="card-body">
+                    <form role="form" method="post" th:action="@{/admin/posts}" th:object="${post}">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text"
+                                    class="form-control"
+                                    placeholder="Enter post title"
+                                    name="title"
+                                    th:field="*{title}"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Short Description</label>
+                            <textarea class="form-control"
+                                      id="shortDescription"
+                                      placeholder="Enter short description"
+                                      name="shortDescription"
+                                      rows="3"
+                                      th:field="*{shortDescription}"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Content</label>
+                            <textarea class="form-control"
+                                      id="content"
+                                      placeholder="Enter post content"
+                                      name="content"
+                                      rows="12"
+                                      th:field="*{content}"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<br>
+
+<div th:replace="admin/header::footer"></div>
+</html>

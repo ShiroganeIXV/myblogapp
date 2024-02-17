@@ -28,4 +28,13 @@ public class PostController {
         model.addAttribute("posts", posts);
         return "/admin/posts"; // return the view name (thyemleaf template)
     }
+
+    // New Post
+    @GetMapping("/admin/posts/newpost")
+    public String newPost(Model model) {
+        PostDto postDto = new PostDto();
+        model.addAttribute("post", postDto);
+        return "/admin/create_post";
+    }
+
 }
