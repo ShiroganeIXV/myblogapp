@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -35,6 +36,17 @@ public class BlogController {
         model.addAttribute("post", post);
 
         return "blog/blog_post";
+    }
+
+    // blog search request http://localhost:8080/page/search?query={query}
+    @GetMapping("/page/search")
+    public String searchPost(@RequestParam(value ="query" )String query,
+                             Model model) {
+        List<PostDto> postsResponse = postService.searchPosts(query);
+        model.addAttribute("postsResponse", postsResponse);
+
+        return "blog/view_posts";
+
     }
 
 
