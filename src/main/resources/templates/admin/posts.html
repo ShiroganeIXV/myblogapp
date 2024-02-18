@@ -16,6 +16,27 @@
         <div class="row">
             <h1>List Blogs Posts</h1>
         </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="mb-3">
+                    <form class="row"th:action="@{/admin/posts/search}">
+                        <div class="input-group mb-3">
+
+                            <input type="text" class="form-control" name="query">
+
+                            <button class="btn btn-outline-secondary" type="submit" >Search</button>
+
+                        </div>
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
         <table class="table table-striped table-hover table-bordered ">
             <thead class="table-dark">
                 <th style="width: 10%">#</th>
@@ -30,7 +51,7 @@
                     <td th:text="${postStat.count}">1</td>
                     <td th:text="${post.title}">title</td>
                     <td th:text="${post.shortDescription}">shortDescription</td>
-                    <td th:text="${post.createdOn}">create on</td>
+                    <td th:text="${#temporals.format(post.createdOn,'dd MMM yyyy')}">create on</td>
                     <td>
                         <a th:href="@{/admin/posts/{postID}/edit(postID=${post.id})}" class="btn btn-primary">Edit</a>
                         <a th:href="@{/admin/posts/{postID}/delete(postID=${post.id})}" class="btn btn-danger">Delete</a>
