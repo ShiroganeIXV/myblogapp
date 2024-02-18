@@ -37,7 +37,7 @@ public class Post {
     private LocalDateTime updatedOn;
 
     @ManyToOne
-    @JoinColumn(name = "created_by", nullable = false)
+    @JoinColumn(name = "created_by")
     private User createdBy;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE) //The mappedBy attribute is used to define the mapping of a bidirectional relationship. If post is removed, all comments associated with it will be removed as well.
