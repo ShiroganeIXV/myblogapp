@@ -3,6 +3,8 @@ package com.dianawu.blogApp.mapper;
 import com.dianawu.blogApp.dto.PostDto;
 import com.dianawu.blogApp.entity.Post;
 
+import java.util.stream.Collectors;
+
 public class PostMapper {
 
     //! map Entity -> Dto
@@ -16,6 +18,9 @@ public class PostMapper {
                 .shortDescription(post.getShortDescription())
                 .createdOn(post.getCreatedOn())
                 .updatedOn(post.getUpdatedOn())
+                .comments(post.getComments()
+                        .stream()
+                        .map(CommentMapper::mapToDto).collect(Collectors.toSet()))
                 .build();
 
         return postDto;
