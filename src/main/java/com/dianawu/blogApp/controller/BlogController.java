@@ -1,5 +1,6 @@
 package com.dianawu.blogApp.controller;
 
+import com.dianawu.blogApp.dto.CommentDto;
 import com.dianawu.blogApp.dto.PostDto;
 import com.dianawu.blogApp.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,10 @@ public class BlogController {
     private String showPost(@PathVariable String postUrl,
                             Model model) {
         PostDto post = postService.findPostByUrl(postUrl);
+        CommentDto commentDto = new CommentDto();
+
         model.addAttribute("post", post);
+        model.addAttribute("comment", commentDto);
 
         return "blog/blog_post";
     }
