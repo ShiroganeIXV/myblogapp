@@ -52,5 +52,11 @@ public class PostServiceImpl implements PostService {
 
     }
 
+    @Override
+    public PostDto findPostByUrl(String postUrl) {
+        Post post = postRepository.findByUrl(postUrl).get();
+        return PostMapper.mapToDto(post);
+    }
+
 
 }
