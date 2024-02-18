@@ -1,6 +1,9 @@
 package com.dianawu.blogApp.controller;
 
+import com.dianawu.blogApp.dto.CommentDto;
 import com.dianawu.blogApp.dto.PostDto;
+import com.dianawu.blogApp.entity.Comment;
+import com.dianawu.blogApp.service.CommentService;
 import com.dianawu.blogApp.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +18,14 @@ import java.util.List;
 public class PostController {
 
     private PostService postService; // use interface to decouple the implementation
+    private CommentService commentService;
 
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CommentService commentService) {
+
         this.postService = postService;
+        this.commentService = commentService;
+
     }
 
     // create handler methods, GET request and return a model and view
@@ -104,7 +111,21 @@ public class PostController {
 
     }
 
+    // List Comments
+    @GetMapping("/admin/posts/comments")
+    public String postComments(Model model){
 
+        List<CommentDto> comments = commentService.findAllComments();
+        model.addAttribute("comments", comments);
+        return "admin/comments";
+    }
+
+    // Delete Comment
+    @GetMapping("/admin/posts/comments/{commentId}")
+    public String deleteComment(@PathVariable("commentId") Long commentId){
+        commentService.deleteComment(commentId);
+        return "redirect:/admin/posts/comments";
+    }
 
 
     // other methods
