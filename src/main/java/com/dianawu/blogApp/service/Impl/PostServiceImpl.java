@@ -2,9 +2,12 @@ package com.dianawu.blogApp.service.Impl;
 
 import com.dianawu.blogApp.dto.PostDto;
 import com.dianawu.blogApp.entity.Post;
+import com.dianawu.blogApp.entity.User;
 import com.dianawu.blogApp.mapper.PostMapper;
 import com.dianawu.blogApp.repository.PostRepository;
+import com.dianawu.blogApp.repository.UserRepository;
 import com.dianawu.blogApp.service.PostService;
+import com.dianawu.blogApp.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,23 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
+    private UserRepository userRepository;
     @Autowired
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository,UserRepository userRepository) {
+
         this.postRepository = postRepository;
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public List<PostDto> findPostsByUser() {
+        String email = SecurityUtils.getCurrentUser().getUsername();
+        User createdBy = userRepository.findByEmail(email);
+        Long userId = createdBy.getId();
+       List<Post> posts = postRepository.findPostsByUser(userId);
+        return posts.stream()
+                .map(PostMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -30,7 +47,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void createPost(PostDto postDto) {
+        String email = SecurityUtils.getCurrentUser().getUsername();
+        User user = userRepository.findByEmail(email);
         Post post = PostMapper.mapToEntity(postDto);
+        post.setCreatedBy(user);
         postRepository.save(post);
     }
 
@@ -42,7 +62,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void updatePost(PostDto postDto) {
+        String email = SecurityUtils.getCurrentUser().getUsername();
+        User createdBy = userRepository.findByEmail(email);
         Post post = PostMapper.mapToEntity(postDto);
+        post.setCreatedBy(createdBy);
         postRepository.save(post);
     }
 

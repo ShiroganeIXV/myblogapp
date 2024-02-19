@@ -5,6 +5,8 @@ import com.dianawu.blogApp.dto.PostDto;
 import com.dianawu.blogApp.entity.Comment;
 import com.dianawu.blogApp.service.CommentService;
 import com.dianawu.blogApp.service.PostService;
+import com.dianawu.blogApp.util.ROLE;
+import com.dianawu.blogApp.util.SecurityUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,13 @@ public class PostController {
     @GetMapping("/admin/posts")
     public String posts(Model model) {
 
-        List<PostDto> posts = postService.findAllPosts();
+        String role = SecurityUtils.getRole();
+        List<PostDto> posts = null;
+        if (ROLE.ROLE_ADMIN.name().equals(role)) {
+            posts = postService.findAllPosts();
+        }else {
+            posts = postService.findPostsByUser();
+        }
 
         model.addAttribute("posts", posts);
         return "/admin/posts"; // return the view name (thyemleaf template)
@@ -114,8 +122,14 @@ public class PostController {
     // List Comments
     @GetMapping("/admin/posts/comments")
     public String postComments(Model model){
-
-        List<CommentDto> comments = commentService.findAllComments();
+        String role = SecurityUtils.getRole();
+        List<CommentDto> comments = null;
+        if (ROLE.ROLE_ADMIN.name().equals(role)){
+            comments = commentService.findAllComments();
+        }else {
+            comments = commentService.findCommentsByPost();
+        }
+        
         model.addAttribute("comments", comments);
         return "admin/comments";
     }

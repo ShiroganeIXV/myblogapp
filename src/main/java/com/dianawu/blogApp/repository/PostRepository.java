@@ -16,4 +16,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "p.shortDescription LIKE CONCAT('%',:query,'%') ")
     List<Post> searchPost(String query);
 
+    @Query(value = "SELECT * FROM posts p WHERE p.created_by = :userId", nativeQuery = true)
+    List<Post> findPostsByUser(Long userId);
+
+
+
 }
