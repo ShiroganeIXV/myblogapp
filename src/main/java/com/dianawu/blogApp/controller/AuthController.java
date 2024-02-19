@@ -51,4 +51,11 @@ public class AuthController {
         return "redirect:/register?success";
     }
 
+    //Login
+    @GetMapping("/login")
+    public String loginPage(){
+        return "login";
+    }
+
+
 }
