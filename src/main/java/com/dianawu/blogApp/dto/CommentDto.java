@@ -25,4 +25,6 @@ public class CommentDto {
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
 
+    Long postId;
+
 }

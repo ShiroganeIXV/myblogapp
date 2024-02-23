@@ -33,6 +33,7 @@ public class WebSpringSecurity {
         http.csrf((csrf) -> csrf.disable()) //CSRF stands for Cross-Site Request Forgery. By default, Spring Security enables protection against CSRF attacks.
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/page/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/login/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/register/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/admin/**"))

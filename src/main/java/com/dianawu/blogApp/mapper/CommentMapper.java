@@ -13,6 +13,7 @@ public class CommentMapper {
                 .content(comment.getContent())
                 .createdOn(comment.getCreatedOn())
                 .updatedOn(comment.getUpdatedOn())
+                .postId(comment.getPost().getId())
                 .build();
     }
 

@@ -15,6 +15,17 @@
                 <h4 th:text="${post.shortDescription}"></h4>
                 <hr>
                 <div th:utext="${post.content}"></div>
+                <hr>
+                <!--View Comment-->
+                <div th:each="comment: ${post.comments}">
+                    <div>
+                        <p><b>Name:</b><strong th:text="${comment.name}"></strong></p>
+                        <p><b>Date:</b><em th:text="${#temporals.format(comment.createdOn,'dd MMM yyyy')}"></em></p>
+                        <p th:text="${comment.content}"></p>
+                        <br>
+                    </div>
+
+                </div>
 
 
             </div>
