@@ -1,5 +1,6 @@
 package com.dianawu.blogApp.dto;
 
+import com.dianawu.blogApp.entity.User;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,5 +26,6 @@ public class PostDto {
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
 
+    private User createdBy;
     private Set<CommentDto> comments;
 }

@@ -11,6 +11,8 @@
     <div class="row">
         <div class="col-md-9">
             <h2 th:text="${post.title}"></h2>
+            <p><strong>Published on: </strong><span th:text="${#temporals.format(post.createdOn,'dd MMM yyyy')}"></span></p>
+            <p> <strong>Created By:</strong> <em><span th:text="${post.createdBy.name}"></span></em></p>
             <hr>
             <h4 th:text="${post.shortDescription}"></h4>
             <hr>
@@ -98,6 +100,21 @@
         <div class="col-md-3">
             <!-- Search bar -->
             <div th:replace="blog/search::search"></div>
+            <br>
+
+            <!--Recommended Posts by same author-->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Posts by same Author</h3>
+                </div>
+                <div th:each="recommend : ${recommendedPosts}" class="card-body">
+                    <ul>
+                        <li>
+                            <a th:href="@{/post/{postUrl}(postUrl=${recommend.url})}" th:text="${recommend.title}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
         <br>

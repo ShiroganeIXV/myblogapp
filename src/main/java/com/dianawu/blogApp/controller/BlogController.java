@@ -35,9 +35,11 @@ public class BlogController {
                             Model model) {
         PostDto post = postService.findPostByUrl(postUrl);
         CommentDto commentDto = new CommentDto();
+        List<PostDto> recommendedPosts = postService.recommendedPostsByUser(post.getCreatedBy().getId());
 
         model.addAttribute("post", post);
         model.addAttribute("comment", commentDto);
+        model.addAttribute("recommendedPosts", recommendedPosts);
 
         return "blog/blog_post";
     }

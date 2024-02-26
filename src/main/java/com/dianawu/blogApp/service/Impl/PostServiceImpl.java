@@ -37,6 +37,7 @@ public class PostServiceImpl implements PostService {
                 .collect(Collectors.toList());
     }
 
+
     @Override
     public List<PostDto> findAllPosts() {
         List<Post> posts = postRepository.findAll();
@@ -85,6 +86,14 @@ public class PostServiceImpl implements PostService {
     public List<PostDto> searchPosts(String query) {
         List<Post> posts = postRepository.searchPost(query);
         return posts.stream()
+                .map(PostMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostDto> recommendedPostsByUser(Long userId) {
+        List<Post> recommendedPosts = postRepository.findPostsByUser(userId);
+        return recommendedPosts.stream()
                 .map(PostMapper::mapToDto)
                 .collect(Collectors.toList());
     }

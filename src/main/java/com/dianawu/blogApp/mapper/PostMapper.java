@@ -18,6 +18,7 @@ public class PostMapper {
                 .shortDescription(post.getShortDescription())
                 .createdOn(post.getCreatedOn())
                 .updatedOn(post.getUpdatedOn())
+                .createdBy(post.getCreatedBy())
                 .comments(post.getComments()
                         .stream()
                         .map(CommentMapper::mapToDto).collect(Collectors.toSet()))
@@ -38,6 +39,7 @@ public class PostMapper {
                 .shortDescription(postDto.getShortDescription())
                 .createdOn(postDto.getCreatedOn())
                 .updatedOn(postDto.getUpdatedOn())
+                .createdBy(postDto.getCreatedBy())
                 .build();
 
         return post;
